@@ -48,10 +48,12 @@ ActiveRecord::Schema.define(version: 2023_12_08_014900) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
-    t.string "bland"
+    t.string "shop_code"
     t.integer "price"
     t.string "genre_id"
     t.string "rakuten_url"
+    t.string "image_url"
+    t.string "caption"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
