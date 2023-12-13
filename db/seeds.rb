@@ -17,7 +17,13 @@ User.create!(
   Genre.create([
   { id: "567170", name: "ゲーミングキーボード" },
   # 他のジャンルも追加
-])
+  ])
+  
+  Tag.create([
+  { name: "ゲーミングマウス" },
+  { name: "logicool" },
+  # 他のジャンルも追加
+  ])
   
   
 # genres_data = Item.select(:genre_id).distinct.pluck(:genre_id)

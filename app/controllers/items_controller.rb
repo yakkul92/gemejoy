@@ -1,4 +1,7 @@
 class ItemsController < ApplicationController
+  
+  before_action :set_default_genre_id, only: [:search]
+  
   # 商品一覧表示ページ
   def index
   end
@@ -13,33 +16,30 @@ class ItemsController < ApplicationController
   # 商品編集ページ
   def edit
   end
-  
+
   # 商品検索アクション
   def search
     @items = []
     @keyword = params[:keyword]
     @genre_ids = params[:genre_ids] || []
-  
-    if @keyword.present? || @genre_ids.present?
+    @tag_ids = params[:tag_ids] || []
+
+    if @keyword.present? || @genre_ids.present? || @tag_ids.present?
       # APIで取得したデータを格納する
-      results = RakutenWebService::Ichiba::Item.search({
-        keyword: params[:keyword],
-        genreId: @genre_ids.join(",")
-      })
-  
+      results = RakutenWebService::Ichiba::Item.search(search_params)
+
       # itemsに取得データを格納する
       results.each do |result|
-        item = Item.find_or_initialize_by(name: result["itemName"]) # 名前で検索 
-        #find_or_initialize_by 既存テーブルにデータがあればfind_byの結果を返してくれて、なければnewしてインスタンスを作ってくれます。
+        item = Item.find_or_initialize_by(name: result["itemName"]) # 名前で検索
         item.attributes = read(result)
-        # 保存
         item.save
         @items << item
       end
     end
-  end  
+  end
 
   private
+
   # APIから取得したデータをパースしてモデル用のデータに変換する
   def read(result)
     name = result["itemName"]
@@ -58,5 +58,40 @@ class ItemsController < ApplicationController
       image_url: image_url,
       caption: caption,
     }
+  end
+  
+  # genreId のデフォルト値を設定
+  def set_default_genre_id
+    @genre_ids ||= ["567167"] if @genre_ids.blank?
+  end
+
+
+  # API検索用のパラメータを組み立てる
+  def search_params
+    search_conditions = {}
+  
+    # keyword の条件
+    if @keyword.present?
+      search_conditions[:keyword] = "#{@keyword} #{tag_keywords}"
+    elsif @tag_ids.present?
+      # keyword がなくても tag だけが選択されている場合、tag_keywords を利用する
+      search_conditions[:keyword] = tag_keywords
+    end
+
+    # genreId の条件
+    if @genre_ids.present? && @genre_ids.first != "0"
+      search_conditions[:genreId] = @genre_ids.join(",")
+    elsif @keyword.present?
+      # キーワードのみで検索した場合、genreId を固定する
+      @genre_ids = ["567167"]
+      search_conditions[:genreId] = @genre_ids.join(",")
+    end
+
+    search_conditions
+  end
+
+  # タグのキーワードを取得
+  def tag_keywords
+    Tag.where(id: @tag_ids).pluck(:name).join(" ")
   end
 end

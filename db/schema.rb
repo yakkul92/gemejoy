@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_13_062403) do
+ActiveRecord::Schema.define(version: 2023_12_13_074723) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -65,11 +65,24 @@ ActiveRecord::Schema.define(version: 2023_12_13_062403) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "items_tags", id: false, force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["item_id", "tag_id"], name: "index_items_tags_on_item_id_and_tag_id"
+    t.index ["tag_id", "item_id"], name: "index_items_tags_on_tag_id_and_item_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer "user_id"
     t.integer "item_id"
     t.string "comment"
     t.boolean "is_active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
