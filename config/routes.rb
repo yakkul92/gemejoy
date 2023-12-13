@@ -12,9 +12,9 @@ Rails.application.routes.draw do
   get 'users/my_page' => 'users#show'
   get 'users/confirm' => 'users#confirm'
   patch 'users/unsubscribe' => 'users#subscribe', as: 'users/unsubcribe'
-  get 'items/search'
+  get 'items/search', to: 'items#search', as: 'search_items'
   
-  resources :users, only: [:edit, :update]
+  resources :users, only: [:index, :edit, :update]
   resources :items, only: [:index, :show]
   resources :genres, only: [:index, :create, :edit, :update]
   resources :reviews

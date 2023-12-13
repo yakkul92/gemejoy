@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      ジャンル検索
+      <table class="table">
+        <tbody>
+          <% Genre.all.each do |genre| %>
+            <tr>
+              <td>
+                <%= check_box_tag "genre_ids[]", genre.id, params[:genre_ids].present? ? params[:genre_ids].include?(genre.id.to_s) : false %>
+              </td>
+              <td>
+                <%= label_tag genre.id, genre.name %>
+              </td>          
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= submit_tag "Search" %>
+    </div>
+  </div>
+</div>
+
+
+

@@ -13,3 +13,21 @@ User.create!(
   introduction: "管理者です",
   admin: true
   )
+  
+  Genre.create([
+  { id: "567170", name: "ゲーミングキーボード" },
+  # 他のジャンルも追加
+])
+  
+  
+# genres_data = Item.select(:genre_id).distinct.pluck(:genre_id)
+
+# genres_data.each do |genre_id|
+#   Genre.create(name: "ジャンル#{genre_id}", genre_id: genre_id)
+# end
+
+# # 上記で作成したジャンルを元に、items_genres テーブルを更新
+# Item.find_each do |item|
+#   genre = Genre.find_by(genre_id: item.genre_id)
+#   item.genres << genre if genre.present?
+# end
