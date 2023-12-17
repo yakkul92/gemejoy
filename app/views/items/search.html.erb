@@ -1,16 +1,27 @@
 <div class="container">
   <div class="row">
-
-    <div class="col-3">
+    <div class="col-4">
       <%= render 'items/search_genre' %>
     </div>
 
-    <div class="col-9 mt-4">
+    <div class="col-8 mt-4">
       <h4>検索結果</h4>
-      <% if @items.present? %>
-        <%= render 'items/item', items: @item %>
+
+      <% if @search_conditions.present? %>
+        <p>検索条件: 
+          <% conditions = [] %>
+          <% conditions << "キーワード: #{@search_conditions[:keyword]}" if @search_conditions[:keyword].present? %>
+          <% conditions << "ジャンル: #{Genre.where(id: @search_conditions[:genre_ids]).pluck(:name).join(", ")}" if @search_conditions[:genre_ids].present? %>
+          <% conditions << "タグ: #{Tag.where(id: @search_conditions[:tag_ids]).pluck(:name).join(", ")}" if @search_conditions[:tag_ids].present? %>
+          <%= "(#{conditions.join('、')})" %>
+        </p>
       <% end %>
 
+      <% if @items.present? %>
+        <%= render 'items/item', items: @items %>
+      <% else %>
+        <p>検索条件に該当する商品はありませんでした。</p>
+      <% end %>
     </div>
   </div>
 </div>

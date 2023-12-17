@@ -3,20 +3,25 @@
     <%= render 'items/modal' %>
   </div>
 
-  <div class="row">
+  <div class="row justify-content-center">
     <%= form_with url: search_items_path, method: :get, local: true do |f| %>
 
       <div class="col-12 mb-4">
-        キーワードを入力
-        <%= f.text_field :keyword, value: params[:keyword], class: "form-control width: 100%" %>
+        <strong>キーワードを入力</strong>
+        <%= f.text_field :keyword, placeholder: "入力欄", value: params[:keyword], class: "form-control mx-auto mt-2" %>
       </div>
   
       <div class="col-12 mb-4">
-        キーワード検索
-        <table class="table">
+        <strong>キーワード一覧</strong>
+        
+        <div style="margin-top: 5px;">
+          <button id="toggleKeywords" style="padding: 5px; color: #000; border: 1px solid #000; cursor: pointer; border-radius: 5px; font-size: 14px; width: 100%">キーワード表示切り替え</button>
+        </div>
+
+        <table class="table mt-2">
           <tbody>
             <% Tag.all.each do |tag| %>
-              <tr>
+              <tr hidden>
                 <td>
                   <%= check_box_tag "tag_ids[]", tag.id, params[:tag_ids].present? ? params[:tag_ids].include?(tag.id.to_s) : false, id: "tag_#{tag.id}" %>
                 </td>
@@ -30,13 +35,19 @@
       </div>
    
       <div class="col-12">
-        ジャンル検索
-        <table class="table">
+        <strong>ジャンル一覧</strong>
+
+        <!--<div style="margin-top: 10px;">-->
+        <!--  <button id="toggleGenres" style="padding: 5px; color: #000; border: 1px solid #000; cursor: pointer; border-radius: 5px; font-size: 14px; width: 100%">ジャンル表示切り替え</button>-->
+        <!--</div>        -->
+        
+        <table class="table mt-2">
           <tbody>
             <% Genre.all.each do |genre| %>
               <tr>
+              <!--<tr hidden>-->
                 <td>
-                 <%= check_box_tag "genre_ids[]", genre.id, params[:genre_ids].present? ? params[:genre_ids].include?(genre.id.to_s) : false, id: "genre_#{genre.id}" %>
+                 <%= radio_button_tag "genre_ids[]", genre.id, params[:genre_ids].present? ? params[:genre_ids].include?(genre.id.to_s) : false, id: "genre_#{genre.id}" %>
                 </td>
                 <td>
                   <%= label_tag "genre_#{genre.id}", genre.name %>
@@ -48,9 +59,35 @@
         <%= submit_tag "Search", class: "btn btn-primary", style: "width: 100%;" %>
       <% end %>
     </div>
-
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var keywordsTable = document.querySelector('.table');
+
+    document.getElementById('toggleKeywords').addEventListener('click', function(event) {
+      event.preventDefault(); // デフォルトのイベントをキャンセル
+
+      var rows = keywordsTable.querySelectorAll('tbody tr');
+      rows.forEach(function(row) {
+        row.hidden = !row.hidden;
+      });
+    });
+
+    var genresTable = document.querySelectorAll('.table')[1];
+
+    document.getElementById('toggleGenres').addEventListener('click', function(event) {
+      event.preventDefault(); // デフォルトのイベントをキャンセル
+
+      var rows = genresTable.querySelectorAll('tbody tr');
+      rows.forEach(function(row) {
+        row.hidden = !row.hidden;
+      });
+    });
+  });
+</script>
+
 
 
 

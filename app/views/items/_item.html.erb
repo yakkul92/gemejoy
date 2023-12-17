@@ -8,18 +8,29 @@
           <th class="col-7">製品名</th>
           <th class="col-3">値段</th>
         </thead>
-        <% @items.first(10).each do |item| %>
         <tbody>
-          <td>
-            <%= link_to item_path(item) do %>
-              <% images = JSON.parse(item.image_url) %>
-              <%= image_tag images.first %>
-            <% end %>
-          </td>
-          <td><%= link_to item.name, item_path(item) %></td>
-          <td><%= number_with_delimiter(item.price) %>円</td>
+          <% @items.first(10).each do |item| %>
+            <tr>
+              <td>
+                <%= link_to item_path(item) do %> 
+                  <% if item_path(item).present? %> <!-- 商品の詳細ページへのリンクがnilでないことを確認 -->
+                    <% if item.image_url.present? %> <!-- 商品に画像がある場合 -->
+                      <% images = JSON.parse(item.image_url) %>
+                      <%= image_tag images.first %> <!-- 商品の画像を表示 -->
+                    <% else %>
+                      <span>No Image</span> <!-- 商品に画像がない場合 -->
+                    <% end %>
+                  <% else %>
+                    <%= image_tag 'fallback_image.jpg' %> <!-- 商品の詳細ページへのリンクがnilの場合、デフォルトの画像を表示 -->
+                  <% end %>
+                <% end %>
+
+              </td>
+              <td><%= link_to item.name, item_path(item) %></td>
+              <td><%= number_with_delimiter(item.price) %>円</td>
+            </tr>
+          <% end %>
         </tbody>
-        <% end %>
       </table>
     </div>
   </div>

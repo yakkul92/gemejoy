@@ -18,7 +18,10 @@
         <div class="col-md-7">
           <div class="card-body">
             <h5 class="card-title"><%= @item.name %></h5>
-            <h5 class="card-text mt-5"><%= @item.price.to_s(:delimited) %>円</h5>
+            <h5 class="card-text my-5"><%= @item.price.to_s(:delimited) %>円</h5>
+            <div class=<%= "favorite-" + @item.id.to_s %> >
+              <%= render "favorite_items/btn", item: @item %>
+            </div>
           </div>
         </div>
       </div>

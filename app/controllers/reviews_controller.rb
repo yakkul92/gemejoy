@@ -17,7 +17,8 @@ class ReviewsController < ApplicationController
 
 
   def index
-    @reviews = Review.where(is_active: true)
+    @reviews = Review.where(is_active: true, users: { is_active: true }).includes(:user)
+    # @reviews = Review.where(is_active: true)
     # @reviews = Review.all
   end
 

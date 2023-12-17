@@ -2,10 +2,6 @@ class ItemsController < ApplicationController
   
   before_action :set_default_genre_id, only: [:search]
   
-  # 商品一覧表示ページ
-  def index
-  end
-
   # 商品詳細表示ページ
   def show
     @item = Item.find(params[:id])
@@ -13,15 +9,12 @@ class ItemsController < ApplicationController
     @reviews = @item.reviews
   end
 
-  # 商品編集ページ
-  def edit
-  end
-
   # 商品検索アクション
   def search
     @items = []
     @keyword = params[:keyword]
     @genre_ids = params[:genre_ids] || []
+    puts "@genre_ids: #{ @genre_ids.inspect }"
     @tag_ids = params[:tag_ids] || []
 
     if @keyword.present? || @genre_ids.present? || @tag_ids.present?
@@ -36,6 +29,12 @@ class ItemsController < ApplicationController
         @items << item
       end
     end
+    # 検索条件をビューに渡す
+    @search_conditions = {
+      keyword: @keyword,
+      genre_ids: @genre_ids,
+      tag_ids: @tag_ids
+    }  
   end
 
   private
@@ -80,11 +79,13 @@ class ItemsController < ApplicationController
 
     # genreId の条件
     if @genre_ids.present? && @genre_ids.first != "0"
-      search_conditions[:genreId] = @genre_ids.join(",")
+      # genreId を複数の数値に変換し、配列のまま格納
+      puts @genre_ids.inspect  # この行を追加
+      search_conditions[:genreId] = @genre_ids.map(&:to_i)
     elsif @keyword.present?
       # キーワードのみで検索した場合、genreId を固定する
       @genre_ids = ["567167"]
-      search_conditions[:genreId] = @genre_ids.join(",")
+      search_conditions[:genreId] = @genre_ids.map(&:to_i)
     end
 
     search_conditions
