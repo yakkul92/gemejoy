@@ -1,8 +1,67 @@
-<h1>新規投稿</h1>
-<%= form_with model: @review do |f| %>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-3">
+      <%= render 'items/search_genre' %>
+    </div>
 
-  <h4>評価</h4>
-  <%= f.text_area :comment %>
-	
-  <%= f.submit '投稿' %>
-<% end %>
+    <div class="col-9">
+    <h3>商品詳細</h3>
+
+    <div class="card mb-3 mt-4">
+      <div class="row g-0">
+        <div class="col-md-4 m-3">
+            <%= link_to item_path(@item) do %>
+              <% images = JSON.parse(@item.image_url) %>
+              <%= image_tag images.first, style: "width: 100%;" %>
+            <% end %>
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <h5 class="card-title"><%= @item.name %></h5>
+            <h5 class="card-text mt-5"><%= @item.price.to_s(:delimited) %>円</h5>
+          </div>
+        </div>
+      </div>
+    </div>   
+    <div class="my-4">
+      <%= link_to "#", class: "btn btn-primary", data: { toggle: "collapse", target: "#captionCollapse" } do %>
+        説明を読む
+      <% end %>
+    </div>     
+    <div class="collapse" id="captionCollapse">
+      <small><%= @item.caption %></small>
+    </div>
+    
+    <%= form_with model: @review do |f| %>
+      <div class="mt-4">
+        <h4>レビュー</h4>
+        <%= f.hidden_field :item_id, value: @item.id %>
+        <%= f.text_area :comment, rows: 3, placeholder: "(例)エイムがよくなりました！", style: "width: 100%; border: 1px solid #ddd; outline: none;" %>
+        
+        <div class="form-group position-static">
+            <p>評価:</P>
+            <div id="post_raty"></div> <!-- 星を出力するセレクタ -->
+            <% if @review.id.nil? %> <!-- 新規投稿か判別 -->
+              <script>
+                  var elem = document.querySelector('#post_raty');
+                  var opt = {
+                      starOn: "<%= asset_path('star-on.png') %>",
+                      starOff: "<%= asset_path('star-off.png') %>",
+                      starHalf: "<%= asset_path('star-half.png') %>",
+                      scoreName: 'review[star]',
+                      half: true, 
+                  };
+                  raty(elem,opt);
+              </script>
+            <% else %>
+              <%= render "output_star", book: book %>
+            <% end %>
+        </div>
+      </div>  
+      <%= f.submit '投稿', class: 'btn btn-primary', style: 'background-color: #3498db; color: #fff;' %>
+   
+    <% end %>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      
+      <table class="table">
+        <thead>
+          <th class="col-3">ユーザー名</th>
+          <th class="col-3">メールアドレス</th>
+          <th class="col-2">レビュー数</th>
+          <th class="col-2">いいね数</th>
+          <th class="col-2">ステータス</th>
+        </thead>
+        <% @users.each do |user| %>
+        <tbody>
+          <td><%= link_to user.name, edit_user_path(user) %></td>
+          <td><%= user.email %></td>
+          <td><%= user.reviews.count %></td>
+          <td>
+            <%= user.reviews.sum(&:favorite_reviews_count) %>
+          </td>
+          <td>
+            <% if user.is_active == true %>
+              有効
+            <% else %>
+              退会済み
+            <% end %>
+          </td>            
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

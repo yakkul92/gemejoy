@@ -1,51 +1,58 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="/"><span>Bookers</span></a>
+      <div class="col-2 text-right">
+        <h1 class="mb-0"><a class="navbar-brand text-dark" href="/"><img src="<%= asset_path('hlogo.png') %>", style="height:80px"></a></h1>
+      </div>
+      <h3 class="navbar-brand text-center m-0" href="/">GAME JOY!</h3>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-        <% if user_signed_in? %><!--ユーザーがログインしたら-->
-          <li>
-            <%= link_to user_path(current_user),class: 'nav-link text-light' do %>
-              <i class="fas fa-home"></i> Home
+          <% if user_signed_in? %>
+          <!--ユーザーがログインしたら-->
+            <li>
+              <%=  link_to items_path ,class: 'nav-link text-light' do %>
+                <i class="fas fa-magnifying-glass"></i> Search
+              <% end %>
+            </li>
+            <li>
+              <%=  link_to reviews_path,class: 'nav-link text-light' do %>
+                <i class="fas fa-users"></i> Reviews
+              <% end %>
+            </li>
+            <li>
+              <%=  link_to  user_path(current_user), class: 'nav-link text-light' do %>
+                <i class="fas fa-users"></i> My page
+              <% end %>
+            </li>
+            <% if current_user.admin? %>
+               <!--admin ユーザーの場合に表示するメニュー -->
+              <li>
+                <%= link_to users_path, class: 'nav-link text-light' do %>
+                  <i class="fas fa-cog"></i> Users
+                <% end %>
+              </li>
             <% end %>
-          </li>
-          <li>
-            <%=  link_to users_path,class: 'nav-link text-light' do %>
-              <i class="fas fa-users"></i> Users
-            <% end %>
-          </li>
-          <li>
-            <%=  link_to items_path ,class: 'nav-link text-light' do %>
-              <i class="fas fa-book-open"></i> Books
-            <% end %>
-          </li>
-          <li>
-            <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
-              <i class="fas fa-sign-out-alt"></i> logout
-            <% end %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to root_path,class: 'nav-link text-light' do %>
-              <i class="fas fa-home"></i> Home
-            <% end %>
-          </li>
 
-          <li>
-            <%= link_to new_user_registration_path,class: 'nav-link text-light' do %>
-              <i class="fas fa-user-plus"></i> sign up
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
-              <i class="fas fa-sign-in-alt"></i> login
-            <% end %>
-          </li>
-        <% end %>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
+                <i class="fas fa-sign-out-alt"></i> Logout
+              <% end %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to new_user_registration_path,class: 'nav-link text-light' do %>
+                <i class="fas fa-user-plus"></i> Sign Up
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
+                <i class="fas fa-sign-in-alt"></i> Login
+              <% end %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>

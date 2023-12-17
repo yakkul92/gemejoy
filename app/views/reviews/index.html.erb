@@ -1,8 +1,40 @@
-<h1>レビュー一覧</h1>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <h4>レビュー一覧</h4>
+      <table class="table">
+        <thead>
+          <th class="col-1" style="text-align: center;">商品画像</th>
+          <th class="col-3" style="text-align: center;">製品名</th>
+          <th class="col-2" style="text-align: center;">値段</th>
+          <th class="col-2" style="text-align: center;">ユーザー名</th>
+          <th class="col-2" style="text-align: center;">☆レビュー</th>
+          <th class="col-2" style="text-align: center;">コメント</th>
+        </thead>
+        <% @reviews.each do |review| %>
+        <tbody>
+            <td>
+              <%= link_to review_path(review) do %>
+                <% images = JSON.parse(review.item.image_url) %>
+                <%= image_tag images.first %>
+              <% end %>
+            </td>
+            <td>
+              <% if review.user == current_user %>
+                <%= link_to review.item.name, edit_review_path(review) %>
+              <% else %>
+                <%= link_to review.item.name, review_path(review) %>
+              <% end %>
+            </td>
+            <td><%= number_with_delimiter(review.item.price) %>円</td>
+            <td><small><%= review.user.name %></small></td>
+            <td style="text-align: center;"><%= review.star %></td>
+            <td><%= review.comment %></td>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
 
-<% @reviews.each do |review| %>
 
-  <p>タイトル</p>
-  <span><%= review.comment %></span>
-  
-<% end %>
