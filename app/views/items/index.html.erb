@@ -1,25 +1,63 @@
 <div class="container">
   <div class="row">
-    
+
     <div class="col-4">
       <%= render 'items/search_genre' %>
     </div>
-    
-    <div class="col-8 mt-4">
-      <div class="background-container m-0 p-0">
+
+    <div class="col-8 my-4">
+      <div class="m-0 p-0">
         <!-- 背景写真 -->
         <%= image_tag asset_path('top.jpg'), alt: 'Background Image', class: 'background-image' %>
-
-        <!-- 画像の上に書く文字 -->
-        <div class="overlay-text width: 100%">
-          <p>お気に入りの機材でゲームを楽しもう！</p>
-        </div>
+      </div>
+      
+      <h5 class="mt-4">最近投稿されたレビュー</h5>
+      
+      <div class="row">
+        <% @reviews.each do |review| %>
+          <div class="col-md-4 card" style="">
+            <div class="card-img-top text-center">
+              <%= link_to review_path(review) do %>
+                <% images = JSON.parse(review.item.image_url) %>
+                <%= image_tag images.first %>
+              <% end %>
+            </div>
+            <div class="card-body">
+              <p class="card-text multiline-ellipsis">
+                <%= review.item.name %>
+              </p>
+              <%= link_to "レビュー詳細", review_path(review) %>
+            </div>
+          </div>          
+        <% end %>
+      </div>
+      
+      <h5 class="mt-4">最近いいねされた商品</h5>
+      <div class="row">
+        <% @favorite_items.each do |item| %>
+          <div class="col-md-4 card" style="">
+            <div class="card-img-top text-center">
+              <%= link_to item_path(item) do %>
+                <% images = JSON.parse(item.image_url) %>
+                <%= image_tag images.first %>
+              <% end %>
+            </div>
+            <div class="card-body">
+              <p class="card-text multiline-ellipsis">
+                <%= item.name %>
+              </p>
+              <%= link_to "商品詳細", item_path(item) %>
+            </div>
+          </div>          
+        <% end %>
       </div>      
     </div>
+    
+      
   </div>
 </div>
 
 
-  
 
-    
+
+

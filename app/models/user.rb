@@ -20,4 +20,14 @@ class User < ApplicationRecord
   has_many :favorite_reviews, dependent: :destroy
   has_many :favorite_items, dependent: :destroy
 
+  # 無効なユーザーアカウントはログインできないようにする
+  def active_for_authentication?
+    super && is_active?
+  end
+  
+  # 無効なユーザーアカウントにエラーメッセージを表示しない
+  def inactive_message
+    is_active? ? super : :account_inactive
+  end
+
 end

@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @reviews = @user.reviews
   end
 
   def edit
@@ -25,8 +26,13 @@ class UsersController < ApplicationController
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
     @user.update(is_active: false)
     reset_session
-    flash[:notice] = "退会処理を実行いたしました"
-    redirect_to root_path
+    redirect_to root_path, notice: "退会処理を実行いたしました"
+  end
+  
+  def user_status
+    @user = User.find(params[:id])
+    @user.update(is_active: !@user.is_active)
+    redirect_to users_path, notice: "ユーザーのステータスを更新しました。"
   end
   
   def user_params

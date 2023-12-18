@@ -15,12 +15,17 @@ Rails.application.routes.draw do
   
   get 'items/search', to: 'items#search', as: 'search_items'
   
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update] do
+    member do
+      patch 'user_status' # ユーザーステータスの更新
+    end
+  end
 
   resources :items, only: [:index, :show] do
     resource :favorite_items, only: [:create, :destroy]
   end
   resources :genres, only: [:index, :create, :edit, :update]
+  resources :tags, only: [:index, :create, :edit, :update]
   resources :reviews do
     resource :favorite_reviews, only: [:create, :destroy]
   end

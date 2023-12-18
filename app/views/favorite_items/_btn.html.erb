@@ -1,11 +1,11 @@
 <% if item.favorited_item_by?(current_user) %>
   <%= link_to item_favorite_items_path(item), method: :delete, remote: true do %>
     <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-    <%= item.favorite_items.count %> いいね
+    <%= item.favorite_items.count %> この商品いいね！
   <% end %>
 <% else %>
   <%= link_to item_favorite_items_path(item), method: :post, remote: true do %>
     <i class="fas fa-heart" aria-hidden="true"></i>
-    <%= item.favorite_items.count %> いいね
+    <%= item.favorite_items.count %> この商品いいね！
   <% end %>
 <% end %>

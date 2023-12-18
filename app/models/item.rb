@@ -9,4 +9,12 @@ class Item < ApplicationRecord
     favorite_items.where(user_id: user.id).exists?
   end
   
+  def favorite_items_count
+    favorite_reviews.count
+  end
+  
+  scope :price_desc, -> {order(price: :desc)} 
+  scope :price_asc, -> {order(price: :asc)} 
+  scope :favorite_items_count, -> { order(favorite_items_count: :desc) }
+  
 end

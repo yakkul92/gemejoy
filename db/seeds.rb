@@ -13,7 +13,7 @@ User.create!(
   introduction: "管理者です",
   admin: true
   )
-  
+
 5.times do |n|
   User.create!(
     email: "user#{n + 1}@example.com",
@@ -22,18 +22,18 @@ User.create!(
     introduction: "これはユーザー #{n + 1} です。"
   )
 end
-  
+
   Genre.create([
   { id: "567170", name: "ゲーミングキーボード" },
-  { id: "567171", name: "ゲーミングマウス" },
+  { id: "565171", name: "ゲーミングマウス" },
   { id: "552391", name: "ゲーミングマウスパッド" },
   { id: "567169", name: "ゲーミングヘッドセット" },
   { id: "567167", name: "ゲーミングイヤホン" },
-  { id: "110105", name: "ゲーミングモニター" },  
+  { id: "110105", name: "ゲーミングモニター" },
   { id: "211549", name: "ゲームパッド" },
   # 他のジャンルも追加可
   ])
-  
+
   Tag.create([
   { name: "logicool" },
   { name: "Razer" },
@@ -49,7 +49,7 @@ end
   { name: "NZXT" },
   { name: "CENTURY" },
   { name: "SONY" },
-  { name: "Acer" },  
+  { name: "Acer" },
   { name: "BUFFALO" },
   { name: "Max" },
   { name: "サンワサプライ" },

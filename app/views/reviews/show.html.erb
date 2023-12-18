@@ -1,74 +1,75 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-3">
+    <div class="col-md-4">
       <%= render 'items/search_genre' %>
     </div>
 
-    <div class="col-9">
-    <h3>商品詳細</h3>
+    <div class="col-md-8">
+      <h3>レビュー詳細</h3>
 
-    <div class="card mb-3 mt-4">
-      <div class="row g-0">
-        <div class="col-md-4 m-3">
+      <div class="card mb-3 mt-4">
+        <div class="row g-0">
+          <div class="col-md-4 m-3">
             <%= link_to item_path(@review) do %>
               <% images = JSON.parse(@review.item.image_url) %>
               <%= image_tag images.first, style: "width: 100%;" %>
             <% end %>
-        </div>
-        <div class="col-md-7">
-          <div class="card-body">
-            <h5 class="card-title"><%= @review.item.name %></h5>
-            <h5 class="card-text mt-5"><%= @review.item.price.to_s(:delimited) %>円</h5>
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <h5 class="card-title"><%= @review.item.name %></h5>
+              <h5 class="card-text mt-5"><%= @review.item.price.to_s(:delimited) %>円</h5>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="my-4">
-      <%= link_to "#", class: "btn btn-primary", data: { toggle: "collapse", target: "#captionCollapse" } do %>
-        説明を読む
-      <% end %>
-    </div>
-    <div class="collapse" id="captionCollapse">
-      <small><%= @review.item.caption %></small>
-    </div>
 
-    <div class="review-section">
-      <h4>レビュー</h4>
+      <div class="my-4">
+        <%= link_to "#", class: "btn btn-primary", data: { toggle: "collapse", target: "#captionCollapse" } do %>
+          説明を読む
+        <% end %>
+      </div>
 
-      <%= render 'items/static_rate', review: @review %>
+      <div class="collapse" id="captionCollapse">
+        <small><%= @review.item.caption %></small>
+      </div>
 
       <div class="mt-4">
-        <p><%= @review.comment %></p>
-      </div>
+        <h4>レビュー(投稿者: <%= link_to @review.user.name, user_path(@review.user) %>)</h4>
 
-      <div class=<%= "favorite-" + @review.id.to_s %> >
-        <%= render "favorite_reviews/btn", review: @review %>
-      </div>
+        <%= render 'items/static_rate', review: @review %>
 
-      <div class="row mt-3">
-        <div class="col">
-          <% if current_user.id == @review.user_id %>
-            <%= link_to "編集", edit_review_path(@review.id), class: "btn btn-success mr-2" %>
-            <%= link_to "削除", review_path(@review.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
-          <% end %>
+        <div class="mt-4">
+          <p><%= @review.comment %></p>
         </div>
-      </div>
 
-      <% if current_user.admin? %>
-        <!-- 管理者の場合のみ表示 -->
-        <div class="admin-controls">
-          <% if @review.is_active %>
-            <%= link_to "無効にする", review_path(@review, review: { is_active: false }), method: :put, class: "btn btn-danger" %>
-          <% else %>
-            <%= link_to "有効にする", review_path(@review, review: { is_active: true }), method: :put, class: "btn btn-success" %>
-          <% end %>
+        <div class="favorite-<%= @review.id %>">
+          <%= render "favorite_reviews/btn", review: @review %>
         </div>
-      <% end %>
 
+        <div class="row mt-3">
+          <div class="col">
+            <% if current_user.id == @review.user_id %>
+              <%= link_to "編集", edit_review_path(@review.id), class: "btn btn-success mr-2" %>
+              <%= link_to "削除", review_path(@review.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
+            <% end %>
+          </div>
+        </div>
 
+        <% if current_user.admin? %>
+          <!-- 管理者の場合のみ表示 -->
+          <div class="admin-controls mt-3">
+            <% if @review.is_active %>
+              <%= link_to "無効にする", review_path(@review, review: { is_active: false }), method: :put, class: "btn btn-danger" %>
+            <% else %>
+              <%= link_to "有効にする", review_path(@review, review: { is_active: true }), method: :put, class: "btn btn-success" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
-
   </div>
 </div>
+
 
 

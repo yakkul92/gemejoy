@@ -37,10 +37,6 @@
       <div class="col-12">
         <strong>ジャンル一覧</strong>
 
-        <!--<div style="margin-top: 10px;">-->
-        <!--  <button id="toggleGenres" style="padding: 5px; color: #000; border: 1px solid #000; cursor: pointer; border-radius: 5px; font-size: 14px; width: 100%">ジャンル表示切り替え</button>-->
-        <!--</div>        -->
-        
         <table class="table mt-2">
           <tbody>
             <% Genre.all.each do |genre| %>
@@ -74,20 +70,6 @@
         row.hidden = !row.hidden;
       });
     });
-
-    var genresTable = document.querySelectorAll('.table')[1];
-
-    document.getElementById('toggleGenres').addEventListener('click', function(event) {
-      event.preventDefault(); // デフォルトのイベントをキャンセル
-
-      var rows = genresTable.querySelectorAll('tbody tr');
-      rows.forEach(function(row) {
-        row.hidden = !row.hidden;
-      });
-    });
   });
 </script>
-
-
-
 

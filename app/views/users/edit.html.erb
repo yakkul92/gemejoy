@@ -1,32 +1,29 @@
-<div class='container'>
-  <div class='row'>
+<div class="container mt-5">
+  <div class="row">
     <div class="col-md-8 px-0 mx-auto">
-        <h3 class="mb-0">会員情報編集</h3>
+      <h3 class="mb-0">会員情報編集</h3>
     </div>
   </div>
 </div>
 
-<div class='container'>
-  <div class='row'>
+<div class="container">
+  <div class="row">
     <div class="col-md-8 bg-white p-5 mx-auto rounded-lg">
       <%= form_with model: @user, url: user_path(current_user), method: :patch do |f| %>
-      <div>
-        <table>
-          <tr>
-            <td>
-              <%= f.label :"ユーザー名" %><%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-            </td>
-          </tr>
+        <div class="mb-4">
+          <label for="user_name">ユーザー名</label>
+          <%= f.text_field :name, class: "form-control", autofocus: true, autocomplete: "name" %>
+        </div>
 
-          <tr>
-            <td><%= f.label :"メールアドレス" %><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
-          </tr>
+        <div class="mb-4">
+          <label for="user_email">メールアドレス</label>
+          <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %>
+        </div>
 
-            <td><%= f.submit "編集内容を保存", class:"btn btn-success mt-3 mr-5" %>
-            <%= link_to "退会する", users_unsubscribe_path(@user), method: :delete, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger mt-3" %>
-          </tr>
-        </table>
-      </div>
+        <div class="d-flex justify-content-between">
+          <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+          <%= link_to "退会する", users_unsubscribe_path(@user), method: :delete, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
+        </div>
       <% end %>
     </div>
   </div>

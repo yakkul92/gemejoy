@@ -20,6 +20,24 @@ class ReviewsController < ApplicationController
     @reviews = Review.where(is_active: true, users: { is_active: true }).includes(:user)
     # @reviews = Review.where(is_active: true)
     # @reviews = Review.all
+
+    if params[:latest]
+      @reviews = @reviews.latest
+    elsif params[:old]
+      @reviews = @reviews.old
+    elsif params[:star_count]
+      @reviews = @reviews.star_count
+    elsif params[:favorite_reviews_count]
+      @reviews = @reviews.favorite_reviews_count  
+    else
+      @reviews
+    end
+    
+    if params[:search_word].present?
+      @reviews = @reviews.joins(:item).where("items.name LIKE ?", "%#{params[:search_word]}%")
+    end
+    render 'reviews/index'    
+    
   end
 
   def show

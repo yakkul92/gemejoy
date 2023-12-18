@@ -1,7 +1,7 @@
 <div class='container'>
   <div class='row'>
     <div class="col-md-6 px-0 mx-auto mt-4">
-      <h3 class="mb-0">ジャンル編集</h3>
+      <h3 class="mb-0">キーワードタグ編集</h3>
     </div>
   </div>
 </div>
@@ -9,10 +9,10 @@
 <div class='container'>
   <div class='row'>
     <div class="col-md-6 bg-white mt-4 mx-auto rounded-lg">
-      <%= form_with model: @genre, url: genre_path(@genre.id), method: :patch do |f| %>
+      <%= form_with model: @tag, url: tag_path(@tag.id), method: :patch do |f| %>
 
-        <td><%= f.label :"ジャンル名", class: "m-3" %></td>
-        <td><%= f.text_field :name, include_blank: "ジャンル名は必須です。", class: "m-3", required: true %></td>
+        <td><%= f.label :"キーワード", class: "m-3" %></td>
+        <td><%= f.text_field :name, include_blank: "キーワードは必須です。", class: "m-3", required: true %></td>
         <td><%= f.submit "変更を保存", class: "btn btn-success m-3" %></td>
       <% end %>
     </div>
