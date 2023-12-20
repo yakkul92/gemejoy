@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2023_12_17_055235) do
     t.integer "price"
     t.string "genre_id"
     t.string "rakuten_url"
-    t.string "image_url"
+    t.text "image_url"
     t.string "caption"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
