@@ -43,10 +43,6 @@
           <p><%= @review.comment %></p>
         </div>
 
-        <div class="favorite-<%= @review.id %>">
-          <%= render "favorite_reviews/btn", review: @review %>
-        </div>
-
         <div class="row mt-3">
           <div class="col">
             <% if current_user.id == @review.user_id %>

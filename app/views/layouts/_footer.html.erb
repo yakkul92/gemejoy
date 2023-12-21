@@ -1,5 +1,11 @@
-<footer class="w-100 bg-white">
-  <div class="container">
-    <div class="small text-center text-muted py-3">© 2023 GAME JOY</div>
-  </div>
-</footer>
+  <footer class="w-100 bg-white">
+    <div class="container">
+      <div class="text-center text-muted py-3">
+        © 2023 GAME JOY
+
+        <%= link_to("Rakuten Web Service Center", {url: "https://webservice.rakuten.co.jp/", target: "_blank"}) do %>
+          <%= image_tag "https://webservice.rakuten.co.jp/img/credit/200709/credit_22121.gif", border: 0, alt: "Rakuten Web Service Center", title: "Rakuten Web Service Center", width: 221, height: 21 %>
+        <% end %>
+      </div>
+    </div>
+  </footer>

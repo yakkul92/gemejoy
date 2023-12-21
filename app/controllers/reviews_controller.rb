@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
 
     if @review.save
       # 成功時の処理...
-      redirect_to reviews_path
+      redirect_to review_path(@review)
     else
       # エラー時の処理...
       Rails.logger.error("Review creation failed: #{@review.errors.full_messages}")
