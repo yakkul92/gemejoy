@@ -11,10 +11,16 @@
     <div class="col-md-8 bg-white mt-4 mx-auto rounded-lg">
       <%= form_with model: @genre, url: genre_path(@genre.id), method: :patch do |f| %>
 
-        <td><%= f.label :"ジャンル名", class: "m-3" %></td>
-        <td><%= f.text_field :name, include_blank: "ジャンル名は必須です。", class: "m-3", required: true %></td>
-        <td><%= f.submit "変更を保存", class: "btn btn-success m-3" %></td>
-        <td><%= link_to "削除", genre_path(@genre), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger m-3" %></td>
+        <div class="form-group">
+          <%= f.label :"ジャンル名", class: "m-3" %>
+          <%= f.text_field :name, include_blank: "ジャンル名は必須です。", class: "form-control m-3", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "変更を保存", class: "btn btn-success m-3" %>
+          <%= link_to "削除", genre_path(@genre), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger m-3" %>
+        </div>
+
       <% end %>
     </div>
   </div>
