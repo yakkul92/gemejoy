@@ -13,9 +13,6 @@ class GenresController < ApplicationController
     else
       render 'index'
     end
-
-
-
   end
 
   def edit
@@ -29,8 +26,6 @@ class GenresController < ApplicationController
     else
       render 'edit'
     end
-
-
   end
 
 private

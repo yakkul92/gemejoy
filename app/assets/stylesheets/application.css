@@ -49,3 +49,19 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.flash-notice {
+  background-color: #dff0d8; /* 通知の背景色 */
+  border: 1px solid #d6e9c6; /* 通知のボーダー */
+  color: #3c763d; /* 通知の文字色 */
+  padding: 15px; /* 通知の内部余白 */
+  margin-bottom: 15px; /* 通知間のマージン */
+}
+
+.flash-alert {
+  background-color: #f2dede; /* 警告の背景色 */
+  border: 1px solid #ebccd1; /* 警告のボーダー */
+  color: #a94442; /* 警告の文字色 */
+  padding: 15px; /* 警告の内部余白 */
+  margin-bottom: 15px; /* 警告間のマージン */
+}

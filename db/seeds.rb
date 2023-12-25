@@ -6,15 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# 管理者の作成
 User.create!(
-  email: "admin@admin",
-  password:  "1234567890",
-  name: "admin",
-  introduction: "管理者です",
+  email: ENV['ADMIN_EMAIL'],
+  password: ENV['ADMIN_PASSWORD'],
+  name: ENV['ADMIN_NAME'],
+  introduction: ENV['ADMIN_INTRODUCTION'],
   admin: true
-  )
+)
 
-5.times do |n|
+# テストユーザーの作成
+3.times do |n|
   User.create!(
     email: "user#{n + 1}@example.com",
     password: "password",
@@ -57,3 +59,51 @@ end
   { name: "SENNHEISER" },
   # 他のジャンルも追加可
   ])
+
+# テストアイテムの作成
+3.times do |n|
+  item = Item.create!(
+    name: "商品#{n + 1}",
+    shop_code: "SHOP00#{n + 1}",
+    price: (n + 1) * 1000,
+    genre_id: "T00#{n + 1}",
+    rakuten_url: "https://example.com/item#{n + 1}",
+    image_url: '["no_image.jpg", "image2.jpg", "image3.jpg"]',
+    caption: "これは商品 #{n + 1} です。"
+  )
+
+  # 既存のレビューがない場合のみ新しいレビューを作成
+  unless Review.exists?(item_id: item.id)
+    # レビューの作成
+    review = Review.create!(
+      user_id: User.all.sample.id,
+      item_id: item.id,
+      comment: "これは商品 #{item.id} へのレビューです。",
+      star: rand(1..5),
+      is_active: true
+    )
+
+    # レビューコメントの作成
+    2.times do
+      ReviewComment.create!(
+        content: "これはレビューへのコメントです。",
+        user_id: User.all.sample.id,
+        review_id: review.id
+      )
+
+      # いいね（レビューに対する）
+      FavoriteReview.create!(
+        user_id: User.all.sample.id,
+        review_id: review.id
+      )
+
+      # いいね（商品に対する）
+      FavoriteItem.create!(
+        user_id: User.all.sample.id,
+        item_id: item.id
+      )
+    end
+  end
+end
+
+

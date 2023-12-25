@@ -57,6 +57,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 
+gem 'rails-i18n'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+
 gem 'rakuten_web_service'
 gem 'rails_admin', '~> 2.0.0.beta'
 gem 'cancancan'

@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col">
+    <% if current_user.id != review.user_id %>
+      <%= form_with model: [review, review_comment] do |f| %>
+        <%= f.text_area :content, rows:'3', placeholder: "レビューに対するコメントをご記入ください", class:"form-control"  %>
+        <%= f.submit "コメント登録", class: "btn btn-primary mt-3 mb-3" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<h5 class="mt-4">コメント一覧</h5>
+
+<div class="row">
+  <% review_comments.each do |review_comment| %>
+    <div class="col-6 mt-3" style="word-wrap: break-word;">
+      <%= review_comment.content %>
+    </div>
+    <div class="col-4 mt-3" style="word-wrap: break-word;">
+      by_<%= link_to review_comment.user.name, user_path(review_comment.user) %>
+    </div>
+    <div class="col-2 mt-3">
+      <% if current_user.id == review_comment.user_id || current_user.admin? %>
+        <%= link_to "削除する", review_review_comment_path(review_comment.review, review_comment), method: :delete, remote: true, "data-confirm" => "本当に削除しますか？", class: "btn-sm btn-danger" %></td>
+      <% end %>
+    </div>
+  <% end %>
+</div>
