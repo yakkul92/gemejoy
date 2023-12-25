@@ -25,9 +25,8 @@ Rails.application.routes.draw do
     resource :favorite_items, only: [:create, :destroy]
   end
 
-  resources :genres, only: [:index, :create, :edit, :update]
-
-  resources :tags, only: [:index, :create, :edit, :update]
+  resources :genres, only: [:index, :create, :edit, :update, :destroy]
+  resources :tags, only: [:index, :create, :edit, :update, :destroy]
 
   resources :reviews do
     resource :favorite_reviews, only: [:create, :destroy]
