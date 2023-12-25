@@ -8,6 +8,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @reviews = @user.reviews
+    @favorite_items = @user.favorite_items.includes(:item)
+    @favorite_reviews = @user.favorite_reviews.includes(:review)
   end
 
   def edit

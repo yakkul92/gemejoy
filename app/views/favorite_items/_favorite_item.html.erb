@@ -1,0 +1,19 @@
+<table class="table mt-4">
+  <thead>
+    <th class="col-1" style="text-align: center;">商品画像</th>
+    <th class="col-11" style="text-align: center;">商品名</th>
+  </thead>
+  <% favorite_items.each do |favorite_item| %>
+  <tbody>
+      <td>
+        <%= link_to item_path(favorite_item.item) do %>
+          <% images = JSON.parse(favorite_item.item.image_url) %>
+          <%= image_tag images.first %>
+        <% end %>
+      </td>
+      <td style="text-align: center;">
+          <%= link_to favorite_item.item.name, item_path(favorite_item.item) %>
+      </td>
+  </tbody>
+  <% end %>
+</table>

@@ -1,12 +1,10 @@
 <table class="table mt-4">
   <thead>
     <th class="col-1" style="text-align: center;">商品画像</th>
-    <th class="col-4" style="text-align: center;">商品名</th>
-    <th class="col-1" style="text-align: center;">値段</th>
-    <th class="col-1" style="text-align: center;">ユーザー名</th>
-    <th class="col-1" style="text-align: center;">☆レビュー</th>
-    <th class="col-1" style="text-align: center;">コメント</th>
-    <th class="col-1" style="text-align: center;">いいね数</th>
+    <th class="col-5" style="text-align: center;">商品名</th>
+    <th class="col-2" style="text-align: center;">☆レビュー</th>
+    <th class="col-2" style="text-align: center;">コメント</th>
+    <th class="col-2" style="text-align: center;">いいね数</th>
   </thead>
   <% reviews.each do |review| %>
   <tbody>
@@ -23,11 +21,9 @@
           <%= link_to review.item.name, review_path(review) %>
         <% end %>
       </td>
-      <td style="text-align: center;"><%= number_with_delimiter(review.item.price) %>円</td>
-      <td style="text-align: center;"><small><%= review.user.name %></small></td>
       <td style="text-align: center;">☆<%= review.star %></td>
       <td><%= review.comment %></td>
-      <td>♡<%= review.favorite_reviews_count %></td>
+      <td style="text-align: center;">♡<%= review.favorite_reviews_count %></td>
   </tbody>
   <% end %>
 </table>

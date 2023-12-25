@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
 
   # 商品検索アクション
   def search
+    #空の配列を代入
     @items = []
     @keyword = params[:keyword]
     @genre_ids = params[:genre_ids] || []
@@ -28,7 +29,8 @@ class ItemsController < ApplicationController
 
       # itemsに取得データを格納する
       results.each do |result|
-        item = Item.find_or_initialize_by(name: result["itemName"]) # 名前で検索
+         # 名前で検索。もし見つからない場合は、新しいアイテムを初期化します。
+        item = Item.find_or_initialize_by(name: result["itemName"])
         item.attributes = read(result)
         item.save
         @items << item
@@ -44,7 +46,7 @@ class ItemsController < ApplicationController
 
   private
 
-  # APIから取得したデータをパースしてモデル用のデータに変換する
+  # APIから取得したデータをモデル用のデータに変換する
   def read(result)
     name = result["itemName"]
     shop_code = result["shopCode"]
@@ -90,7 +92,8 @@ class ItemsController < ApplicationController
       @genre_ids = ["567167"]
       search_conditions[:genreId] = @genre_ids.join(",")
     end
-
+    
+    #戻り値
     search_conditions
   end
 

@@ -27,5 +27,16 @@
     <h4>レビュー履歴</h4>
     <%= render 'reviews/review_index', reviews: @reviews %>
   </div>
+  
+  <div class="row mt-5">
+    <h4>いいねしたレビュー</h4>
+    <%= render 'favorite_reviews/favorite_review', favorite_reviews: @favorite_reviews %>
+  </div> 
+
+  <div class="row mt-5">
+    <h4>いいねしたアイテム</h4>
+    <%= render 'favorite_items/favorite_item', favorite_items: @favorite_items %>
+  </div> 
+  
 </div>
 

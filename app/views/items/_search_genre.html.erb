@@ -63,15 +63,14 @@
   }
 
   document.addEventListener('turbolinks:load', function() {
-    console.log('Turbolinks loaded!');
 
     var toggleKeywordsButton = document.getElementById('toggleKeywords');
     var keywordsTable = document.querySelector('.table');
-  
+
     if (toggleKeywordsButton && keywordsTable) {
       toggleKeywordsButton.addEventListener('click', function(event) {
         event.preventDefault();
-  
+
         var rows = keywordsTable.querySelectorAll('tbody tr');
         rows.forEach(function(row) {
           row.hidden = !row.hidden;

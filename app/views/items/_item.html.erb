@@ -15,20 +15,19 @@
         </thead>
         <% @items.first(10).each do |item| %>
         <tbody>
-<td>
-  <% if item.image_url.present? %>
-    <%= link_to item_path(item) do %>
-      <% images = JSON.parse(item.image_url) %>
-      <% if images.present? && images.first.present? %>
-        <%= image_tag images.first %>
-      <% else %>
-        <!-- 画像が存在しない場合の処理 -->
-        <%= image_tag "no_image.jpg" %>
-      <% end %>
-    <% end %>
-  <% end %>
-</td>
-
+          <td>
+            <% if item.image_url.present? %>
+              <%= link_to item_path(item) do %>
+                <% images = JSON.parse(item.image_url) %>
+                <% if images.present? && images.first.present? %>
+                  <%= image_tag images.first %>
+                <% else %>
+                  <!-- 画像が存在しない場合の処理 -->
+                  <%= image_tag "no_image.jpg" %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </td>
           <td><%= link_to item.name, item_path(item) %></td>
           <td><%= number_with_delimiter(item.price) %>円</td>
           <td style="text-align: center;">♡<%= item.favorite_items.count %></td>

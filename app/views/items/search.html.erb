@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-4">
+    <div class="col-md-4">
       <%= render 'items/search_genre' %>
     </div>
 
@@ -8,7 +8,7 @@
       <h4>検索結果</h4>
 
       <% if @search_conditions.present? %>
-        <p>検索条件: 
+        <p>検索条件:
           <% conditions = [] %>
           <% conditions << "キーワード: #{@search_conditions[:keyword]}" if @search_conditions[:keyword].present? %>
           <% conditions << "ジャンル: #{Genre.where(id: @search_conditions[:genre_ids]).pluck(:name).join(", ")}" if @search_conditions[:genre_ids].present? %>

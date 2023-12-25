@@ -7,7 +7,8 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   GUEST_USER_EMAIL = "guest@example.com"
-
+  
+  #ゲストユーザー
   def self.guest
     user = find_or_initialize_by(email: GUEST_USER_EMAIL)
     if user.new_record?  # まだ保存されていない新しいレコードの場合

@@ -4,6 +4,7 @@ class ReviewCommentsController < ApplicationController
   def create
     # @review = Review.find(params[:review_id])
     @review_comment = ReviewComment.new(review_comment_params)
+    # コメントにユーザー情報と対象レビューのIDを紐付け
     @review_comment.user_id = current_user.id
     @review_comment.review_id = @review.id
 

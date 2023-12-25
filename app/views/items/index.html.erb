@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-center">
 
-    <div class="col-4">
+    <div class="col-md-4">
       <%= render 'items/search_genre' %>
     </div>
 
@@ -10,9 +10,9 @@
         <!-- 背景写真 -->
         <%= image_tag asset_path('top.jpg'), alt: 'Background Image', class: 'background-image' %>
       </div>
-      
+
       <h5 class="mt-4">最近投稿されたレビュー</h5>
-      
+
       <div class="row">
         <% @reviews.each do |review| %>
           <div class="col-md-4 card" style="">
@@ -28,10 +28,10 @@
               </p>
               <%= link_to "レビュー詳細", review_path(review) %>
             </div>
-          </div>          
+          </div>
         <% end %>
       </div>
-      
+
       <h5 class="mt-4">最近いいねされた商品</h5>
       <div class="row">
         <% @favorite_items.each do |item| %>
@@ -48,12 +48,12 @@
               </p>
               <%= link_to "商品詳細", item_path(item) %>
             </div>
-          </div>          
+          </div>
         <% end %>
-      </div>      
+      </div>
     </div>
-    
-      
+
+
   </div>
 </div>
 

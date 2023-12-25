@@ -18,9 +18,8 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.where(is_active: true, users: { is_active: true }).includes(:user)
-    # @reviews = Review.where(is_active: true)
-    # @reviews = Review.all
-
+    
+    # ソートオプション
     if params[:latest]
       @reviews = @reviews.latest
     elsif params[:old]
@@ -33,6 +32,7 @@ class ReviewsController < ApplicationController
       @reviews
     end
     
+    # キーワード検索がある場合、アイテム名で一覧を絞り込む
     if params[:search_word].present?
       @reviews = @reviews.joins(:item).where("items.name LIKE ?", "%#{params[:search_word]}%")
     end

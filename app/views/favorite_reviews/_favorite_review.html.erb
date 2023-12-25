@@ -1,0 +1,21 @@
+<table class="table mt-4">
+  <thead>
+    <th class="col-1" style="text-align: center;">商品画像</th>
+    <th class="col-5" style="text-align: center;">商品名</th>
+    <th class="col-6" style="text-align: center;">レビュー内容</th>
+  </thead>
+  <% favorite_reviews.each do |favorite_review| %>
+  <tbody>
+      <td>
+        <%= link_to item_path(favorite_review.review) do %>
+          <% images = JSON.parse(favorite_review.review.item.image_url) %>
+          <%= image_tag images.first %>
+        <% end %>
+      </td>
+      <td style="text-align: center;">
+          <%= link_to favorite_review.review.item.name, review_path(favorite_review.review) %>
+      </td>
+      <td style="text-align: center;"><%= favorite_review.review.comment %></td>
+  </tbody>
+  <% end %>
+</table>
