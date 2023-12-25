@@ -41,25 +41,26 @@ admin_user.save!
   item.save!
 
   # レビューデータが存在しない場合のみ新しいレビューデータを作成
-unless Review.exists?(user_id: user.id, item_id: item.id)
-  # レビューデータの作成
-  review = Review.find_or_initialize_by(user_id: user.id, item_id: item.id)
-  review.assign_attributes(
-    comment: "これは商品 #{item.id} へのレビューです。",
-    star: rand(1..5),
-    is_active: true
-  )
+  unless Review.exists?(user_id: user.id, item_id: item.id)
 
-  if review.new_record?
-    review.save!
-  else
-    # 既に存在する場合は更新
-    review.update!(
-      comment: "これは商品 #{item.id} への更新済みレビューです。",
+  # レビューデータの作成
+    review = Review.find_or_initialize_by(user_id: user.id, item_id: item.id)
+    review.assign_attributes(
+      comment: "これは商品 #{item.id} へのレビューです。",
       star: rand(1..5),
       is_active: true
     )
-  end
+
+    if review.new_record?
+      review.save!
+    else
+      # 既に存在する場合は更新
+      review.update!(
+        comment: "これは商品 #{item.id} への更新済みレビューです。",
+        star: rand(1..5),
+        is_active: true
+      )
+    end
 
   # レビューコメントの作成
   2.times do

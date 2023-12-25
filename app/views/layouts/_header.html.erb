@@ -19,12 +19,12 @@
             </li>
             <li>
               <%=  link_to reviews_path,class: 'nav-link text-light' do %>
-                <i class="fas fa-users"></i> Reviews
+                <i class="fa-solid fa-ranking-star"></i> Reviews
               <% end %>
             </li>
             <li>
               <%=  link_to  user_path(current_user), class: 'nav-link text-light' do %>
-                <i class="fas fa-users"></i> My page
+                <i class="fa-solid fa-user"></i> My page
               <% end %>
             </li>
 
@@ -32,7 +32,7 @@
               <!--admin ユーザーの場合に表示するメニュー -->
               <li>
                 <%= link_to users_path, class: 'nav-link text-light' do %>
-                  <i class="fas fa-cog" style="color: red;"></i> <span style="color: red;">Users</span>
+                  <i class="fa-solid fa-users" style="color: red;"></i> <span style="color: red;">Users</span>
                 <% end %>
               </li>
               <li>
