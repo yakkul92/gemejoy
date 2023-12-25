@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_17_055235) do
+ActiveRecord::Schema.define(version: 2023_12_23_041902) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 2023_12_17_055235) do
     t.integer "price"
     t.string "genre_id"
     t.string "rakuten_url"
-    t.string "image_url"
-    t.string "caption"
+    t.text "image_url"
+    t.text "caption"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -84,6 +84,14 @@ ActiveRecord::Schema.define(version: 2023_12_17_055235) do
     t.integer "tag_id", null: false
     t.index ["item_id", "tag_id"], name: "index_items_tags_on_item_id_and_tag_id"
     t.index ["tag_id", "item_id"], name: "index_items_tags_on_tag_id_and_item_id"
+  end
+
+  create_table "review_comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "review_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "reviews", force: :cascade do |t|

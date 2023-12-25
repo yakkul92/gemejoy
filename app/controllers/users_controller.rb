@@ -15,10 +15,13 @@ class UsersController < ApplicationController
   end
   
   def update
-    user = User.find(params[:id])
-    user.update(is_active: true)
-    user.update(user_params)
-    redirect_to user_path(@user)
+    @user = User.find(params[:id])
+    @user.update(is_active: true)
+    if @user.update(user_params)
+      redirect_to user_path(@user), notice: 'ユーザー情報が更新されました。'
+    else
+      render :edit
+    end
   end  
 
   def unsubscribe

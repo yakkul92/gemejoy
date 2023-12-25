@@ -16,7 +16,7 @@
       <div class="row">
         <% @reviews.each do |review| %>
           <div class="col-md-4 card" style="">
-            <div class="card-img-top text-center">
+            <div class="card-img-top text-center p-3">
               <%= link_to review_path(review) do %>
                 <% images = JSON.parse(review.item.image_url) %>
                 <%= image_tag images.first %>
@@ -36,7 +36,7 @@
       <div class="row">
         <% @favorite_items.each do |item| %>
           <div class="col-md-4 card" style="">
-            <div class="card-img-top text-center">
+            <div class="card-img-top text-center p-3">
               <%= link_to item_path(item) do %>
                 <% images = JSON.parse(item.image_url) %>
                 <%= image_tag images.first %>

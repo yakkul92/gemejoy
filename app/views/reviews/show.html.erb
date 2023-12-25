@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container my-4">
   <div class="row">
     <div class="col-md-4">
       <%= render 'items/search_genre' %>
@@ -35,19 +35,15 @@
       </div>
 
       <div class="mt-4">
-        <h4>レビュー(投稿者: <%= link_to @review.user.name, user_path(@review.user) %>)</h4>
+        <h4 class="mb-4">レビュー(投稿者: <%= link_to @review.user.name, user_path(@review.user) %>)</h4>
 
         <%= render 'items/static_rate', review: @review %>
 
-        <div class="mt-4">
+        <div class="my-4">
           <p><%= @review.comment %></p>
         </div>
 
-        <div class="favorite-<%= @review.id %>">
-          <%= render "favorite_reviews/btn", review: @review %>
-        </div>
-
-        <div class="row mt-3">
+        <div class="row mt-4">
           <div class="col">
             <% if current_user.id == @review.user_id %>
               <%= link_to "編集", edit_review_path(@review.id), class: "btn btn-success mr-2" %>
@@ -58,14 +54,17 @@
 
         <% if current_user.admin? %>
           <!-- 管理者の場合のみ表示 -->
-          <div class="admin-controls mt-3">
+          <div class="admin-controls my-3">
             <% if @review.is_active %>
-              <%= link_to "無効にする", review_path(@review, review: { is_active: false }), method: :put, class: "btn btn-danger" %>
+              <%= link_to "レビューを無効にする", review_path(@review, review: { is_active: false }), method: :put, class: "btn btn-danger" %>
             <% else %>
-              <%= link_to "有効にする", review_path(@review, review: { is_active: true }), method: :put, class: "btn btn-success" %>
+              <%= link_to "レビューを有効にする", review_path(@review, review: { is_active: true }), method: :put, class: "btn btn-success" %>
             <% end %>
           </div>
         <% end %>
+
+        <%= render 'reviews/review_comment', review: @review, review_comments: @review_comments, review_comment: @review_comment %>
+
       </div>
     </div>
   </div>

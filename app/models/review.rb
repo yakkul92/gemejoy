@@ -3,6 +3,9 @@ class Review < ApplicationRecord
   belongs_to :item
   belongs_to :user
   has_many :favorite_reviews, dependent: :destroy
+  has_many :review_comments, dependent: :destroy
+  
+  validates :comment, presence: { message: "空白は許可されません" }
 
   def favorited_review_by?(user)
     favorite_reviews.where(user_id: user.id).exists?

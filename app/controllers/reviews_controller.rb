@@ -6,12 +6,12 @@ class ReviewsController < ApplicationController
 
     if @review.save
       # 成功時の処理...
-      redirect_to reviews_path
+      redirect_to review_path(@review), notice: 'レビューが投稿されました'
     else
       # エラー時の処理...
-      Rails.logger.error("Review creation failed: #{@review.errors.full_messages}")
-      flash[:error] = "レビューの投稿に失敗しました。"
-      render :new
+      flash.now[:alert] = '入力エラーがあります。'
+      @item = Item.find(params[:review][:item_id])
+      render 'items/show'
     end
   end
 
@@ -42,22 +42,38 @@ class ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @review_comments = @review.review_comments.joins(:user).where(users: { is_active: true })
+    @review_comment = ReviewComment.new
   end
 
   def edit
     @review = Review.find(params[:id])
+    @review_comments = @review.review_comments.joins(:user).where(users: { is_active: true })
+    @review_comment = ReviewComment.new
   end
 
   def update
-    review = Review.find(params[:id])
-    review.update(review_params)
-    redirect_to review_path(review.id)
+    @review = Review.find(params[:id])
+    if @review.update(review_params)
+      # 成功時の処理...
+      redirect_to review_path(@review), notice: 'レビューが更新されました'
+    else
+      # エラー時の処理...
+      flash.now[:alert] = '入力エラーがあります。'
+      render 'reviews/show'
+    end    
   end
 
   def destroy
-    review = Review.find(params[:id])
-    review.destroy
-    redirect_to reviews_path
+    @review = Review.find(params[:id])
+    if @review.destroy
+      # 成功時の処理...
+      redirect_to reviews_path, notice: 'レビューが削除されました'
+    else
+      # エラー時の処理...
+      flash.now[:alert] = 'エラーがあります。'
+      render 'reviews'
+    end    
   end
 
 private
