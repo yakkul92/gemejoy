@@ -7,8 +7,8 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.integer :price
       t.string :genre_id
       t.string :rakuten_url
-      t.string :image_url
-      t.string :caption
+      t.text :image_url
+      t.text :caption
       t.timestamps
       
     end
