@@ -21,7 +21,7 @@ http://13.54.164.50/
 - 自分の使っているゲーミングデバイスの評価を共有したい時
 
 ## 設計書
-後ほど作成予定
+![GameJoy_design-ER図(detail) drawio](https://github.com/yakkul92/gemejoy/assets/146314989/5527ff63-f6b4-4421-9376-8103f09d8dae)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
