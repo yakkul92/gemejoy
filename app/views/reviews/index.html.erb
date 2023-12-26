@@ -8,7 +8,7 @@
         |<%= link_to '評価の高い順', reviews_path(star_count: "true") %>
         <!--|<%= link_to 'いいねの多い順', reviews_path(favorite_reviews_count: "true") %>-->
       </p>
-      
+
       <%= form_with(url: reviews_path, method: :get, class: "form-inline") do %>
         <div class="form-group">
           <%= text_field_tag(:search_word, params[:search_word], class: "form-control", placeholder: "キーワードで検索") %>
@@ -17,7 +17,7 @@
       <% end %>
 
       <%= render 'reviews/review_index', reviews: @reviews %>
-      
+
     </div>
   </div>
 </div>
