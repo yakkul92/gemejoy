@@ -9,10 +9,15 @@
 
       <% if @search_conditions.present? %>
         <p>検索条件:
+          <!--空の配列を定義-->
           <% conditions = [] %>
+          <!--search_conditions 内に :keyword が存在する場合、検索キーワードを conditions 配列に追加-->
           <% conditions << "キーワード: #{@search_conditions[:keyword]}" if @search_conditions[:keyword].present? %>
+          <!--search_conditions 内に :genre_ids が存在する場合、対応するジャンルの名前を取得してconditions 配列に追加-->
           <% conditions << "ジャンル: #{Genre.where(id: @search_conditions[:genre_ids]).pluck(:name).join(", ")}" if @search_conditions[:genre_ids].present? %>
+          <!--search_conditions 内に :tag_ids が存在する場合、対応するタグの名前を取得してconditions 配列に追加-->
           <% conditions << "タグ: #{Tag.where(id: @search_conditions[:tag_ids]).pluck(:name).join(", ")}" if @search_conditions[:tag_ids].present? %>
+          <!--最後に conditions 配列を文字列に変換し、それを () で囲んで表示。各条件が , で区切り-->
           <%= "(#{conditions.join('、')})" %>
         </p>
       <% end %>
