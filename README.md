@@ -4,7 +4,7 @@
 ### サイトテーマ
 気になるゲーミングデバイスを検索したり、自分が使ってるゲーミングデバイスの評価を投稿できるレビューサイト
 - ゲームジョイ URL  
-http://13.54.164.50/
+http://13.211.240.177/
 ​
 ### テーマを選んだ理由
 もともとゲームが好きで、ゲームではコントローラやマウスなどのゲーミングデバイスをよく扱っています。  
@@ -22,7 +22,10 @@ http://13.54.164.50/
 
 ## 設計書
 ![GameJoy_design-ER図(detail) drawio](https://github.com/yakkul92/gemejoy/assets/146314989/5527ff63-f6b4-4421-9376-8103f09d8dae)
-​
+
+## VPC構成イメージ
+![vpc_gamejoy drawio](https://github.com/yakkul92/gemejoy/assets/146314989/fdb66180-4734-4f66-8669-c30a40b04cc3)
+
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
